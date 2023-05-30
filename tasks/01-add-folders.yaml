@@ -1,9 +1,3 @@
-- name: Add user pzuser
-  become: true
-  user:
-    name: pzuser
-    state: present
-    password: "*"
 - name: "Create Zomboid directories in {{pz_server_dir}}"
   file:
     path: "{{pz_server_dir}}{{item}}"
@@ -38,7 +32,7 @@
 
 - name: Create server binary files symbolic links to ~/.local/bin
   file:
-    src: "{{pz_server_dir}}/bin/{{item}}"
+    src: "{{pz_server_dir}}/templates/bin/{{item}}"
     dest: "{{pzuser_bin_dir}}/{{item}}"
     state: link
   with_items: "{{ binary_files_list }}"
