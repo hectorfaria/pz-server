@@ -1,20 +1,20 @@
 - name: Install software properties common
-  become: false # Return to root user
+  become: true
   apt:
     name: ["software-properties-common", "screen"]
 
 - name: Install | Add i386 architecture
-  become: false
+  become: true
   command: dpkg --add-architecture i386
 
 - name: Install | (lib32) Packages
-  become: false
+  become: true
   apt:
     name: lib32gcc1
     update_cache: true
 
 - name: accept steam license
-  become: false
+  become: true
   debconf:
     name: "steam"
     question: "steam/question"
@@ -22,7 +22,7 @@
     vtype: "select"
 
 - name: Install SteamCMD
-  become: false
+  become: true
   apt:
     name: steamcmd
     update_cache: yes
