@@ -1,20 +1,15 @@
-- name: Install software properties common
-  become: true
-  apt:
-    name: ["software-properties-common", "screen"]
-
 - name: Install | Add i386 architecture
-  become: true
+  become: false
   command: dpkg --add-architecture i386
 
 - name: Install | (lib32) Packages
-  become: true
+  become: false
   apt:
     name: lib32gcc1
     update_cache: true
 
 - name: accept steam license
-  become: true
+  become: false
   debconf:
     name: "steam"
     question: "steam/question"
@@ -22,15 +17,13 @@
     vtype: "select"
 
 - name: Install SteamCMD
-  become: true
+  become: false
   apt:
     name: steamcmd
     update_cache: yes
 
 - name: Install zomboid dedicated server via SteamCMD
-  become_user: pzuser
-  become_method: su
-  command: "steamcmd +login anonymous +force_install_dir /opt/pzserver/ +app_update 380870 validate +quit"
+  command: "steamcmd +login anonymous +force_install_dir {{zomboid_server_dir}} +app_update 380870 validate +quit"
   register: zomboid_install
 
 - name: Print zomboid install result
