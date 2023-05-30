@@ -1,0 +1,24 @@
+- name: Set up PZ server
+  hosts: localhost
+  connection: local
+
+  become: yes
+  become_method: su
+  become_user: pzuser
+
+  gather_facts: no
+
+  vars_files:
+    - default.config.yaml
+
+  vars:
+    pzuser_bin_dir: "{{pzuser_home}}/.local/bin"
+    pz_server_dir: "{{pzuser_home}}/pz-server"
+    zomboid_dir: "{{pz_server_dir}}/Zomboid"
+    zomboid_server_dir: "{{pz_server_dir}}/server"
+
+  tasks:
+    - include: tasks/01-add-folders.yaml
+      tags: [folders]
+    - include: tasks/02-install-steam-cmd.yaml
+      tags: [steamcmd]

@@ -1,10 +1,9 @@
 
 
-resource "aws_eip_association" "ip-vps-env" {
-  instance_id   = var.spot_instance == "true" ? "${aws_spot_instance_request.vps[0].spot_instance_id}" : "${aws_instance.pz-server[0].id}"
-  allocation_id = var.allocated_id
+resource "aws_eip" "ip-vps-env" {
+  instance = var.spot_instance == "true" ? "${aws_spot_instance_request.vps[0].spot_instance_id}" : "${aws_instance.web[0].id}"
+  vpc      = true
 }
-
 
 resource "aws_key_pair" "ssh_key" {
   key_name   = "ssh_key"
