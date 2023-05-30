@@ -4,7 +4,7 @@
 
   become: true
   become_method: su
-  become_user: pzuser
+  become_user: root
 
   gather_facts: no
 
@@ -13,7 +13,7 @@
 
   vars:
     pzuser_bin_dir: "{{pzuser_home}}/.local/bin"
-    pz_server_dir: "{{pzuser_home}}/pz-server"
+    pz_server_dir: "/opt/pzserver"
     zomboid_dir: "{{pz_server_dir}}/Zomboid"
     zomboid_server_dir: "{{pz_server_dir}}/server"
 
