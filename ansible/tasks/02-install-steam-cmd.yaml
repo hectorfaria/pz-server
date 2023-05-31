@@ -17,7 +17,7 @@
   become_method: su
   become_user: pzuser
   become: false
-  command: "steamcmd +login anonymous +force_install_dir {{zomboid_server_dir}} +app_update 380870 validate +quit"
+  command: "/usr/games/steamcmd +login anonymous +force_install_dir {{zomboid_server_dir}} +app_update 380870 validate +quit"
   register: zomboid_install
 
 - name: Print zomboid install result
