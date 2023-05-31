@@ -1,5 +1,5 @@
 - name: Install | Add i386 architecture
-  command: sudo dpkg --add-architecture i386
+  command: dpkg --add-architecture i386
 
 - name: accept steam license
   debconf:

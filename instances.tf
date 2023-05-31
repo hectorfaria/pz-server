@@ -33,3 +33,8 @@ resource "aws_instance" "pz-server" {
   vpc_security_group_ids      = ["${aws_security_group.ingress-ssh-vps.id}", "${aws_security_group.ingress-pz-server-vps.id}"]
   count                       = var.spot_instance == "true" ? 0 : 1
 }
+resource "aws_volume_attachment" "ebs_att" {
+  device_name = "/dev/sdh"
+  volume_id   = var.volume_id
+  instance_id = aws_instance.pz-server.id
+}

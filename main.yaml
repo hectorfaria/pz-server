@@ -11,7 +11,7 @@
 
   vars:
     pzuser_bin_dir: "{{pzuser_home}}/.local/bin"
-    pz_server_dir: "/opt/pzserver"
+    pz_server_dir: "/dev/game/pzserver"
     zomboid_dir: "{{pz_server_dir}}/Zomboid"
     zomboid_server_dir: "{{pz_server_dir}}/server"
 

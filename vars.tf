@@ -21,7 +21,7 @@ variable "ssh_pub_path" {
 variable "instance_ami" {
   type        = string
   default     = "ami-053b0d53c279acc90"
-  description = "Instance AMI Linux AWS Ubuntu 22"
+  description = "Instance AMI Ubuntu 22"
 }
 variable "spot_price" {
   type        = string
