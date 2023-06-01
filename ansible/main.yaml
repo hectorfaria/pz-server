@@ -17,6 +17,6 @@
       tags: [folders]
     - include: tasks/02-install-steam-cmd.yaml
       tags: [steamcmd]
-    - include: tasks/03-set-server-password.yml
+    - include: tasks/03-set-admin-password.yaml
       when: zomboid_server_password is defined
       tags: [server-pwd]
