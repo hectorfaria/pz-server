@@ -1,7 +1,9 @@
 - name: Install | Add i386 architecture
+  become: true
   command: dpkg --add-architecture i386
 
 - name: accept steam license
+  become: true
   debconf:
     name: "steam"
     question: "steam/question"
@@ -9,6 +11,7 @@
     vtype: "select"
 
 - name: Install SteamCMD
+  become: true
   apt:
     name: steamcmd
     update_cache: yes
@@ -19,6 +22,6 @@
   become: false
   command: "/usr/games/steamcmd +login anonymous +force_install_dir {{zomboid_server_dir}} +app_update 380870 validate +quit"
   register: zomboid_install
-
+  
 - name: Print zomboid install result
   debug: var=zomboid_install.stdout_lines

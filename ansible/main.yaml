@@ -1,8 +1,5 @@
 - name: Set up PZ server
-  hosts: localhost
-  connection: local
-
-  become: true
+  hosts: pzserver
 
   gather_facts: no
 
@@ -11,7 +8,7 @@
 
   vars:
     pzuser_bin_dir: "{{pzuser_home}}/.local/bin"
-    pz_server_dir: "/dev/game/pzserver"
+    pz_server_dir: "/home/pzuser/pzserver"
     zomboid_dir: "{{pz_server_dir}}/Zomboid"
     zomboid_server_dir: "{{pz_server_dir}}/server"
 
@@ -20,3 +17,6 @@
       tags: [folders]
     - include: tasks/02-install-steam-cmd.yaml
       tags: [steamcmd]
+    - include: tasks/03-set-server-password.yml
+      when: zomboid_server_password is defined
+      tags: [server-pwd]
