@@ -18,11 +18,6 @@ variable "ssh_pub_path" {
   default     = "~/.ssh/id_rsa.pub"
   description = "Path to public key to use to login to the server"
 }
-variable "instance_ami" {
-  type        = string
-  default     = "ami-053b0d53c279acc90"
-  description = "Instance AMI Ubuntu 22"
-}
 variable "spot_price" {
   type        = string
   default     = "0.16"

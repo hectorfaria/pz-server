@@ -6,7 +6,7 @@ resource "aws_eip" "ip-vps-env" {
 }
 
 resource "aws_key_pair" "ssh_key" {
-  key_name   = "ssh_key"
+  key_name   = "zomboid"
   public_key = file(var.ssh_pub_path)
 }
 

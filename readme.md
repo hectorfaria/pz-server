@@ -1,12 +1,17 @@
-# Project Zomboid Template server
-
+# Project Zomboid Template server (WIP)
 
 TODO:
+Make pzuser on Ansible
 Add AWSCLI on Ansible
-Add the IAMRole to Ansible
-Add the s3 cp command to Ansible
-
+Add the IAMRole to terraform
+Move S3 to terraform
+Add the s3 cp command to terraform
 Add Global Accelerator
+Add on startup
+Add on delete
+Make tar file
+Maybe using EventBridge to decouple on deletion
+Create VPC gateway endpoints for S3 to save money                                                  
 
 Make your own project zomboid server on AWS, fully customizable!, The repository uses Spot Instances to save as much money possible, S3 to save files and Global Accelerator for less latency.
 
