@@ -1,4 +1,6 @@
+terraform.*
 secrets.tf
 .terraform
 ansible/inventory
 ansible/zomboid.pem
+.DS_Store

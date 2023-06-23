@@ -1,4 +1,5 @@
-output "ubuntu_ip" {
+output "pzserver-ip" {
   value       = aws_eip_association.ip-vps-env.public_ip
   description = "Spot intstance IP"
 }
+
