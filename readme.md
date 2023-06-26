@@ -18,14 +18,14 @@ Make your own project zomboid server on AWS, fully customizable!, The repository
 
 This repository uses:
 
- - AWS (ec2,s3,Cloud Accelerator)
+ - AWS (ec2,s3,Cloud Accelerator(optional))
  - Ansible
  - Terraform
  - Vagrant
 
 Steps to recreate:
 
-Before running the code
+Before running the ansible files
 
    Create your own ansible inventory it should look something like this
     
@@ -41,16 +41,28 @@ Add your pem key and rename it `zomboid.pem` make sure it's for your pzuser, oth
 
 Optionally you can use the `Vagrantfile`, to recreate locally and run the ansible first to make sure everthing works.
 
-Create an IAM Role for s3, this repository saves it's config in s3
-
-Run the Terraform file
+Before running the Terraform files
 
 - Connect to the instance and create the user `pzuser`
 - Get the IP of the connection and run the Ansible file remotely. (Make sure you have the zomboid.pem for the pzuser not the original one.
 - If you have already a Zomboid folder (with the server configuration) upload it from your s3
-- Run the server `cd /home/pzuser` and `start-zomboid && screen -r`
+- Make sure you can run seamlessly the zomboid server
 - Stop the Instance
 - Create an AMI from it
-- Change the AMI variable in the terraform file
+- Make sure you change the variables suited for your region,spot price, and subregion in the terraform file
+- Create a file named secrets.tf like this:
 
-Now all you have to do is `terraform plan` and `terraform destroy` whenever you want to run your server!
+ variable "instance_ami" {
+  type        = string
+  default     = "<your-ami>"
+  description = "Your custom PZ instance"
+  sensitive   = true
+}
+
+variable "bucket_name" {
+  type      = string
+  default   = "<your-bucket-name>"
+  sensitive = true
+}
+
+Now all you have to do is `terraform apply` and `terraform destroy` whenever you want to run your server!
