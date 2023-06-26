@@ -1,9 +1,3 @@
-
-
-resource "aws_eip" "ip-vps-env" {
-  instance = var.spot_instance == "true" ? "${aws_spot_instance_request.pz-spot[0].spot_instance_id}" : "${aws_instance.pz-server[0].id}"
-}
-
 resource "aws_key_pair" "ssh_key" {
   key_name   = "zomboid"
   public_key = file(var.ssh_pub_path)
@@ -22,6 +16,14 @@ resource "aws_spot_instance_request" "pz-spot" {
   security_groups      = ["${aws_security_group.ingress-ssh-vps.id}", "${aws_security_group.ingress-pz-server-vps.id}"]
   subnet_id            = aws_subnet.subnet-one.id
   iam_instance_profile = aws_iam_instance_profile.pz-profile.name
+  user_data            = <<EOF
+#!/bin/bash
+su pzuser -c 'cd ~/pzserver
+rm Zomboid.tar.gz Zomboid -rf
+aws s3 cp s3://${var.bucket_name}/Zomboid.tar.gz . && tar -xf Zomboid.tar.gz
+cd ~
+source .profile && start-zomboid && screen -r; ./run.sh &'
+  EOF
 }
 
 resource "aws_instance" "pz-server" {
@@ -30,6 +32,14 @@ resource "aws_instance" "pz-server" {
   key_name               = aws_key_pair.ssh_key.key_name
   subnet_id              = aws_subnet.subnet-one.id
   vpc_security_group_ids = ["${aws_security_group.ingress-ssh-vps.id}", "${aws_security_group.ingress-pz-server-vps.id}"]
-  count                = var.spot_instance == "true" ? 0 : 1
-  iam_instance_profile = aws_iam_instance_profile.pz-profile.name
+  count                  = var.spot_instance == "true" ? 0 : 1
+  iam_instance_profile   = aws_iam_instance_profile.pz-profile.name
+  user_data              = <<EOF
+#!/bin/bash
+su pzuser -c 'cd ~/pzserver
+rm Zomboid.tar.gz Zomboid -rf
+aws s3 cp s3://${var.bucket_name}/Zomboid.tar.gz . && tar -xf Zomboid.tar.gz
+cd ~
+source .profile && start-zomboid && screen -r; ./run.sh &'
+  EOF
 }

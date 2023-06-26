@@ -2,10 +2,8 @@
 
 TODO:
 terraform:
-Create VPC gateway endpoints for S3 to save money    
 Move S3 to terraform
-Add Global Accelerator
-On Start-up
+Add Telegram API bot
 On Delete
 
 Ansible:

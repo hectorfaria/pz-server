@@ -20,7 +20,7 @@ variable "ssh_pub_path" {
 }
 variable "spot_price" {
   type        = string
-  default     = "0.16"
+  default     = "0.155"
   description = "Maximum price to pay for spot instance"
 }
 variable "spot_type" {

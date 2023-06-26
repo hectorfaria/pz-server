@@ -1,5 +1,5 @@
 output "pzserver-ip" {
-  value       = aws_eip_association.ip-vps-env.public_ip
+  value       = var.spot_instance == "true" ? "${aws_spot_instance_request.pz-spot[0].public_ip}" : "${aws_instance.pz-server[0].public_ip}"
   description = "Spot intstance IP"
 }
 

@@ -1,4 +1,4 @@
-// WIP
+// UNCOMMENT IF YOU WANT THIS
 /* resource "aws_globalaccelerator_accelerator" "ga" {
   name            = "ga"
   ip_address_type = "IPV4"
