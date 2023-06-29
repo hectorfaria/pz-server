@@ -18,12 +18,14 @@ resource "aws_spot_instance_request" "pz-spot" {
   iam_instance_profile = aws_iam_instance_profile.pz-profile.name
   user_data            = <<EOF
 #!/bin/bash
-su pzuser -c 'cd ~/pzserver
+cd /home/pzuser/pzserver
 rm Zomboid.tar.gz Zomboid -rf
 aws s3 cp s3://${var.bucket_name}/Zomboid.tar.gz . && tar -xf Zomboid.tar.gz
-cd ~
-source .profile && start-zomboid && screen -r; ./run.sh &'
-  EOF
+EOF
+  provisioner "local-exec" {
+    command = "cd /home/pzuser/pzserver && tar -czf Zomboid.tar.gz Zomboid && aws s3 cp Zomboid.tar.gz s3://${var.bucket_name}"
+    when    = destroy
+  }
 }
 
 resource "aws_instance" "pz-server" {
@@ -36,10 +38,12 @@ resource "aws_instance" "pz-server" {
   iam_instance_profile   = aws_iam_instance_profile.pz-profile.name
   user_data              = <<EOF
 #!/bin/bash
-su pzuser -c 'cd ~/pzserver
+cd /home/pzuser/pzserver
 rm Zomboid.tar.gz Zomboid -rf
 aws s3 cp s3://${var.bucket_name}/Zomboid.tar.gz . && tar -xf Zomboid.tar.gz
-cd ~
-source .profile && start-zomboid && screen -r; ./run.sh &'
-  EOF
+EOF
+  provisioner "local-exec" {
+    command = "cd /home/pzuser/pzserver && tar -czf Zomboid.tar.gz Zomboid && aws s3 cp Zomboid.tar.gz s3://${var.bucket_name}"
+    when    = destroy
+  }
 }

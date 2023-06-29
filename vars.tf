@@ -7,7 +7,7 @@ variable "cidr_block" {
 }
 variable "aws_availability_zone" {
   type    = string
-  default = "us-east-1f"
+  default = "us-east-1e"
 }
 variable "instance_type" {
   type    = string
@@ -20,7 +20,7 @@ variable "ssh_pub_path" {
 }
 variable "spot_price" {
   type        = string
-  default     = "0.155"
+  default     = "0.16"
   description = "Maximum price to pay for spot instance"
 }
 variable "spot_type" {
