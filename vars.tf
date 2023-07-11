@@ -13,11 +13,6 @@ variable "instance_type" {
   type    = string
   default = "c4.xlarge"
 }
-variable "ssh_pub_path" {
-  type        = string
-  default     = "~/.ssh/id_rsa.pub"
-  description = "Path to public key to use to login to the server"
-}
 variable "spot_price" {
   type        = string
   default     = "0.16"

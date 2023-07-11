@@ -1,6 +1,11 @@
+resource "tls_private_key" "zomboid_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
 resource "aws_key_pair" "ssh_key" {
   key_name   = "zomboid"
-  public_key = file(var.ssh_pub_path)
+  public_key = tls_private_key.zomboid_key.public_key_openssh
 }
 
 resource "aws_spot_instance_request" "pz-spot" {
@@ -22,10 +27,21 @@ cd /home/pzuser/pzserver
 rm Zomboid.tar.gz Zomboid -rf
 aws s3 cp s3://${var.bucket_name}/Zomboid.tar.gz . && tar -xf Zomboid.tar.gz
 EOF
-  provisioner "local-exec" {
-    command = "cd /home/pzuser/pzserver && tar -czf Zomboid.tar.gz Zomboid && aws s3 cp Zomboid.tar.gz s3://${var.bucket_name}"
-    when    = destroy
+
+ /*  connection {
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = tls_private_key.zomboid_key.private_key_pem
+    host        = self.public_ip
   }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo su pzuser",
+      "cd /home/pzuser",
+      "source .profile && start-zomboid && screen -r",
+    ]
+  } */
 }
 
 resource "aws_instance" "pz-server" {
@@ -42,8 +58,4 @@ cd /home/pzuser/pzserver
 rm Zomboid.tar.gz Zomboid -rf
 aws s3 cp s3://${var.bucket_name}/Zomboid.tar.gz . && tar -xf Zomboid.tar.gz
 EOF
-  provisioner "local-exec" {
-    command = "cd /home/pzuser/pzserver && tar -czf Zomboid.tar.gz Zomboid && aws s3 cp Zomboid.tar.gz s3://${var.bucket_name}"
-    when    = destroy
-  }
 }

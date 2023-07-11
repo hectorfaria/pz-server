@@ -9,6 +9,7 @@ On Delete
 Ansible:
 Make pzuser on Ansible
 Add AWSCLI on Ansible
+change ec2 default user to pzuser
 
 Misc:
 Add prometheus for monitoring
@@ -43,7 +44,7 @@ Optionally you can use the `Vagrantfile`, to recreate locally and run the ansibl
 
 Before running the Terraform files
 
-- Connect to the instance and create the user `pzuser`
+- Connect to the instance and create the user `pzuser` and make sure is the cloud init default user
 - Get the IP of the connection and run the Ansible file remotely. (Make sure you have the zomboid.pem for the pzuser not the original one.
 - If you have already a Zomboid folder (with the server configuration) upload it from your s3
 - Make sure you can run seamlessly the zomboid server

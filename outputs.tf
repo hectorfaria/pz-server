@@ -3,3 +3,8 @@ output "pzserver-ip" {
   description = "Spot intstance IP"
 }
 
+output "private_key" {
+  value       = tls_private_key.zomboid_key.private_key_pem
+  description = "Private Key"
+  sensitive   = true
+}
