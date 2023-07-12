@@ -33,14 +33,13 @@ EOF
 
   /*  connection {
     type        = "ssh"
-    user        = "ubuntu"
+    user        = "pzuser"
     private_key = tls_private_key.zomboid_key.private_key_pem
     host        = self.public_ip
   }
 
   provisioner "remote-exec" {
     inline = [
-      "sudo su pzuser",
       "cd /home/pzuser",
       "source .profile && start-zomboid && screen -r",
     ]
