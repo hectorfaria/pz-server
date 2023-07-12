@@ -1,6 +1,9 @@
 resource "aws_security_group" "ingress-ssh-vps" {
   name   = "allow-ssh-sg"
   vpc_id = aws_vpc.vps-env.id
+  tags = {
+    Name = "pz-server"
+  }
 
   ingress {
     cidr_blocks = [
@@ -24,6 +27,9 @@ resource "aws_security_group" "ingress-pz-server-vps" {
   name   = "allow-pz-server-ports"
   vpc_id = aws_vpc.vps-env.id
 
+  tags = {
+    Name = "pz-server"
+  }
   ingress {
     cidr_blocks = [
       "0.0.0.0/0"

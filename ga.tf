@@ -3,6 +3,9 @@
   name            = "ga"
   ip_address_type = "IPV4"
   enabled         = true
+   tags = {
+    Name = "pz-server"
+  }
 }
 
 resource "aws_globalaccelerator_listener" "ga-udp-1" {

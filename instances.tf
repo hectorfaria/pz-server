@@ -6,6 +6,9 @@ resource "tls_private_key" "zomboid_key" {
 resource "aws_key_pair" "ssh_key" {
   key_name   = "zomboid"
   public_key = tls_private_key.zomboid_key.public_key_openssh
+  tags = {
+    Name = "pz-server"
+  }
 }
 
 resource "aws_spot_instance_request" "pz-spot" {
@@ -28,7 +31,7 @@ rm Zomboid.tar.gz Zomboid -rf
 aws s3 cp s3://${var.bucket_name}/Zomboid.tar.gz . && tar -xf Zomboid.tar.gz
 EOF
 
- /*  connection {
+  /*  connection {
     type        = "ssh"
     user        = "ubuntu"
     private_key = tls_private_key.zomboid_key.private_key_pem
@@ -42,6 +45,11 @@ EOF
       "source .profile && start-zomboid && screen -r",
     ]
   } */
+
+  tags = {
+    Name = "pz-server"
+  }
+
 }
 
 resource "aws_instance" "pz-server" {
@@ -58,4 +66,7 @@ cd /home/pzuser/pzserver
 rm Zomboid.tar.gz Zomboid -rf
 aws s3 cp s3://${var.bucket_name}/Zomboid.tar.gz . && tar -xf Zomboid.tar.gz
 EOF
+  tags = {
+    Name = "pz-server"
+  }
 }

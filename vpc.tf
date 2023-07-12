@@ -2,6 +2,10 @@ resource "aws_vpc" "vps-env" {
   cidr_block           = var.cidr_block
   enable_dns_hostnames = true
   enable_dns_support   = true
+
+  tags = {
+    Name = "pz-server"
+  }
 }
 
 resource "aws_subnet" "subnet-one" {
