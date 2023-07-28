@@ -7,7 +7,7 @@ variable "cidr_block" {
 }
 variable "aws_availability_zone" {
   type    = string
-  default = "us-east-1e"
+  default = "us-east-1d"
 }
 variable "instance_type" {
   type    = string

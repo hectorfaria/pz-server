@@ -3,7 +3,6 @@
 TODO:
 terraform:
 Move S3 to terraform
-Add Telegram API bot
 On Delete
 
 Ansible:

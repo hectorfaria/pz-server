@@ -4,3 +4,5 @@ secrets.tf
 ansible/inventory
 ansible/zomboid.pem
 .DS_Store
+zomboid.pem
+telegram.sh
