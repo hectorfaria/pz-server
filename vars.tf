@@ -11,11 +11,11 @@ variable "aws_availability_zone" {
 }
 variable "instance_type" {
   type    = string
-  default = "c4.xlarge"
+  default = "t3a.xlarge"
 }
 variable "spot_price" {
   type        = string
-  default     = "0.16"
+  default     = "0.05"
   description = "Maximum price to pay for spot instance"
 }
 variable "spot_type" {

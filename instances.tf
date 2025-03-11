@@ -24,13 +24,20 @@ resource "aws_spot_instance_request" "pz-spot" {
   security_groups      = ["${aws_security_group.ingress-ssh-vps.id}", "${aws_security_group.ingress-pz-server-vps.id}"]
   subnet_id            = aws_subnet.subnet-one.id
   iam_instance_profile = aws_iam_instance_profile.pz-profile.name
-  user_data            = <<EOF
-#!/bin/bash
-cd /home/pzuser/pzserver
-rm Zomboid.tar.gz Zomboid -rf
-aws s3 cp s3://${var.bucket_name}/Zomboid.tar.gz . && tar -xf Zomboid.tar.gz
-sudo -u pzuser bash -c 'cd /home/pzuser && source .profile && start-zomboid && screen -r'
-EOF
+
+  root_block_device {
+    volume_size = 25 # Set root volume to 25GB (Optional, if you want to expand root disk)
+    volume_type = "gp3"
+  }
+
+
+#   user_data            = <<EOF
+# #!/bin/bash
+# cd /home/pzuser/pzserver
+# rm Zomboid.tar.gz Zomboid -rf
+# aws s3 cp s3://${var.bucket_name}/Zomboid.tar.gz . && tar -xf Zomboid.tar.gz
+# sudo -u pzuser bash -c 'cd /home/pzuser && source .profile && start-zomboid && screen -r'
+# EOF
 
   tags = {
     Name = "pz-server"

@@ -6,3 +6,4 @@ ansible/zomboid.pem
 .DS_Store
 zomboid.pem
 telegram.sh
+.terraform.lock.hcl
