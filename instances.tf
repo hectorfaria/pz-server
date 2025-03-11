@@ -30,15 +30,6 @@ resource "aws_spot_instance_request" "pz-spot" {
     volume_type = "gp3"
   }
 
-
-#   user_data            = <<EOF
-# #!/bin/bash
-# cd /home/pzuser/pzserver
-# rm Zomboid.tar.gz Zomboid -rf
-# aws s3 cp s3://${var.bucket_name}/Zomboid.tar.gz . && tar -xf Zomboid.tar.gz
-# sudo -u pzuser bash -c 'cd /home/pzuser && source .profile && start-zomboid && screen -r'
-# EOF
-
   tags = {
     Name = "pz-server"
   }
